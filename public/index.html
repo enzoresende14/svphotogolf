@@ -856,29 +856,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
 
 <script>
-  // 1) Fetch image list from Node server and build slides dynamically
-  fetch("/api/portfolio-images")
-    .then(res => res.json())
-    .then(imageFiles => {
-      const panelWrap = document.querySelector(".vslider #panelWrap");
+  // 1) Build portfolio slides from a static list (no API)
+const portfolioImages = [
+  "portfolio/1.jpg",
+  "portfolio/2.jpg",
+  "portfolio/3.jpg",
+  // add more as needed: "portfolio/4.jpg", ...
+];
 
-      imageFiles.forEach(src => {
-        const slide = document.createElement("div");
-        slide.className = "vslide";
+const panelWrap = document.querySelector(".vslider #panelWrap");
 
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = "Portfolio image";
+portfolioImages.forEach(src => {
+  const slide = document.createElement("div");
+  slide.className = "vslide";
 
-        slide.appendChild(img);
-        panelWrap.appendChild(slide);
-      });
+  const img = document.createElement("img");
+  img.src = src;
+  img.alt = "Portfolio image";
 
-      initializeGSAPSlider();
-    })
-    .catch(err => {
-      console.error("Error loading portfolio images:", err);
-    });
+  slide.appendChild(img);
+  panelWrap.appendChild(slide);
+});
+
+// after slides exist, init GSAP slider
+initializeGSAPSlider();
 
   function initializeGSAPSlider() {
     const colorArray = ["#000000", "#111111", "#222222", "#333333", "#444444", "#555555"];
